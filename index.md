@@ -4,8 +4,8 @@
 
 ### Web Scraping, Automation, and Constructing Interactive Tables 
 
-[COVID-19 Case Rates by Canadian Health Region](/sample_page)
-<img src="images/covid.jpg?raw=true"/>
+[Web Scraping, Automation, and Constructing Interactive Tables Using COVID-19 Data](/sample_page)
+<img src="images/dummy_thumbnail.jpg?raw=true"/>
 
 ---
 [Project 2 Title](/pdf/sample_presentation.pdf)
