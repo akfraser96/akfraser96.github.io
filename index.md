@@ -16,7 +16,7 @@
 ### Research
 
 - [Using an Electroencephalography Brain-Computer Interface for Monitoring Mental Workload 
-During Flight Simulation](covid_table2.html)
+During Flight Simulation](/pdf/Fraser_ISAP_2021.pdf)
 - [Project 2 Title](http://example.com/)
 - [Project 3 Title](http://example.com/)
 - [Project 4 Title](http://example.com/)
