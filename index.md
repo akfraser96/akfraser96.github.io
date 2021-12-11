@@ -17,7 +17,7 @@
 
 - [Using an Electroencephalography Brain-Computer Interface for Monitoring Mental Workload 
 During Flight Simulation](/pdf/Fraser_ISAP_2021.pdf)
-<img src="images/bci.png?raw=true"/>
+<img src="images/bci.PNG?raw=true"/>
 - [Project 2 Title](http://example.com/)
 - [Project 3 Title](http://example.com/)
 - [Project 4 Title](http://example.com/)
