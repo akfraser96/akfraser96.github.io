@@ -9,7 +9,7 @@
 
 ---
 [Visualization](/pdf/sample_presentation.pdf)
-<img src="images/visualization.png?raw=true style="width:600px;height:349px;"/>
+<img src="images/visualization.png?raw=true" style="width:600px;height:349px;"/>
 
 ---
 [Project 3 Title](http://example.com/)
