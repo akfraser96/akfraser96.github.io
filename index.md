@@ -5,7 +5,7 @@
 ### Data Science 
 
 [Web Scraping, Automation, and Constructing Interactive Tables Using COVID-19 Data](/covid_table_files/covid_table2.html)
-<img src="images/covid2.png?raw=true" style="width:600px;height:600px;"/>
+<img src="images/covid2.png?raw=true" style="width:550px;height:561.76px;"/>
 
 ---
 [Project 2 Title](/pdf/sample_presentation.pdf)
