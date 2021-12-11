@@ -19,7 +19,7 @@
 
 ### Category Name 2
 
-- [Web Scraping, Automation, and Constructing Interactive Tables Using COVID-19 Data](http://example.com/)
+- [Web Scraping, Automation, and Constructing Interactive Tables Using COVID-19 Data](covid_table2.html)
 - [Project 2 Title](http://example.com/)
 - [Project 3 Title](http://example.com/)
 - [Project 4 Title](http://example.com/)
