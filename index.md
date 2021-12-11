@@ -17,14 +17,16 @@
 
 - [Using an Electroencephalography Brain-Computer Interface for Monitoring Mental Workload 
 During Flight Simulation](/pdf/Fraser_ISAP_2021.pdf)
-<img src="images/bci.PNG?raw=true"/>
-- [Project 2 Title](http://example.com/)
+<img src="images/bci.PNG?raw=true" style="width:400px;height:237px;/>
+- [Purely Voluntary Orienting of Attention](/pdf/attention.pdf)
+<img src="images/attention.png?raw=true" style="width:400px;/>
 - [Project 3 Title](http://example.com/)
 - [Project 4 Title](http://example.com/)
 - [Project 5 Title](http://example.com/)
 
 ---
-
+### Awards and Publications
+- ADM Award of Excellence
 
 
 
