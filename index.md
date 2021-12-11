@@ -2,10 +2,10 @@
 
 ---
 
-### Web Scraping, Automation, and Constructing Interactive Tables 
+### Data Science 
 
 [Web Scraping, Automation, and Constructing Interactive Tables Using COVID-19 Data](/sample_page)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
+<img src="images/covid.png?raw=true"/>
 
 ---
 [Project 2 Title](/pdf/sample_presentation.pdf)
@@ -19,7 +19,7 @@
 
 ### Category Name 2
 
-- [Project 1 Title](http://example.com/)
+- [Web Scraping, Automation, and Constructing Interactive Tables Using COVID-19 Data](http://example.com/)
 - [Project 2 Title](http://example.com/)
 - [Project 3 Title](http://example.com/)
 - [Project 4 Title](http://example.com/)
