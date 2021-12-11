@@ -8,8 +8,8 @@
 <img src="images/covid2.png?raw=true" style="width:550px;height:561.76px;"/>
 
 ---
-[Project 2 Title](/pdf/sample_presentation.pdf)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
+[Visualization](/pdf/sample_presentation.pdf)
+<img src="images/visualization.png?raw=true style="width:600px;height:349px;"/>
 
 ---
 [Project 3 Title](http://example.com/)
