@@ -4,7 +4,7 @@
 
 ### Web Scraping, Automation, and Constructing Interactive Tables 
 
-[COVID-19 Case Rates by Canadian Health Region(/sample_page)
+[COVID-19 Case Rates by Canadian Health Region](/sample_page)
 <img src="images/covid.jpg?raw=true"/>
 
 ---
