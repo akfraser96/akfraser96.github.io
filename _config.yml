@@ -10,7 +10,9 @@ description: > # your text below (remove <br> elements if you don't need line br
   <a href="https://www.linkedin.com/in/adam-fraser-212732126/">View My LinkedIn Profile</a> 
   <style>
 body {
-  background-image: "/images.background.jpg";
+  background-image: "/images/background.jpg";
+  background-attachment: fixed;
+  background-size: cover;
 }
 </style>
   
