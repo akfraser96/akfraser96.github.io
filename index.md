@@ -18,7 +18,7 @@
 [Fraser et al., (2021). Using an Electroencephalography Brain-Computer Interface for Monitoring Mental Workload 
 During Flight Simulation](/pdf/Fraser_ISAP_2021.pdf)
 <img src="images/bci.PNG?raw=true" style="width:400px;height:237px;"/>
-<br><br>
+<br>
 [Fraser & Christie (2018). Purely Voluntary Orienting of Attention](/pdf/Fraser&Christie_APP_SubmittedPDF.pdf )
 <img src="images/attention.png?raw=true" style="width:400px;"/>
 <br><br>
