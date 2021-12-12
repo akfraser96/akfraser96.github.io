@@ -1,3 +1,5 @@
+  <style>
+body {
 title: Adam Fraser # your name (or website title) here
 logo: "/images/logo2.PNG?raw=true" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
@@ -8,9 +10,8 @@ description: > # your text below (remove <br> elements if you don't need line br
   Ottawa, Ontario, Canada<br><br>akfraser96@gmail.com
   <br><br>
   <a href="https://www.linkedin.com/in/adam-fraser-212732126/">View My LinkedIn Profile</a> 
-  <style>
-body {
-  background-image: "/images/background.jpg";
+
+  background-image: "/images/background.jpg?raw=true";
   background-attachment: fixed;
   background-size: cover;
 }
