@@ -1,8 +1,8 @@
-## Portfolio
+# Portfolio
 
 ---
 
-### Data Science 
+## Data Science 
 
 [Web Scraping, Automation, and Constructing Interactive Tables Using COVID-19 Data](/covid_table_files/covid_table2.html)
 <img src="images/COVID3.png?raw=true" style="width:550px;"/>
@@ -13,7 +13,7 @@
 
 ---
 
-### Research
+## Research
 
 [Fraser et al., (2021). Using an Electroencephalography Brain-Computer Interface for Monitoring Mental Workload 
 During Flight Simulation](/pdf/Fraser_ISAP_2021.pdf)
@@ -26,8 +26,9 @@ During Flight Simulation](/pdf/Fraser_ISAP_2021.pdf)
 ---
 [Van Benthem et al., (2019). The NASA MATB-II Predicts Prospective Memory Performance During Complex Simulated Flight](/pdf/ISAP2019.pdf)
 <img src="images/ISAP2019.png?raw=true" style="width:400px;"/>
+
 ---
-### Awards and Publications
+## Awards and Publications
 - ADM Award of Excellence for work on COVID-19 (Dec 2021).
 - International Symposium on Aviation Psychology Conference Presentation (May 2021).
 - International Symposium on Aviation Psychology publication (Mar 2021).
