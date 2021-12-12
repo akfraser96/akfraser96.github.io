@@ -9,9 +9,9 @@ description: > # your text below (remove <br> elements if you don't need line br
   <br><br>
   <a href="https://www.linkedin.com/in/adam-fraser-212732126/">View My LinkedIn Profile</a> 
 
-background-image: "../images/background.jpg";
-background-attachment: fixed;
-background-size: cover;
+background-image: "../images/background.jpg"
+#background-attachment: fixed;
+#background-size: cover;
 
   
 theme: jekyll-theme-minimal
