@@ -10,6 +10,10 @@ layout: default
 <div class="hero">
   <img class="feature-img" src="{{ '/images/background.jpg' | relative_url }}" />
 </div>
+  
+  <div class="hero">
+  {{ page.hero_text }}
+</div>
   {{ content }}
 
   {%- if site.posts.size > 0 -%}
