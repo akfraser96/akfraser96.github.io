@@ -41,7 +41,3 @@ During Flight Simulation](/pdf/Fraser_ISAP_2021.pdf)
 - Completed undergraduate research thesis (Aug 2017).
 
 ---
-
-header{
-background-image: url("/images/background.jpg");
-}
