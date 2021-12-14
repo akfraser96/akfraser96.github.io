@@ -8,7 +8,7 @@
 <img src="images/COVID4.png?raw=true" style="width:550px;"/>
 
 ---
-[Visualization](/pdf/sample_presentation.pdf)
+[Visualization]
 <img src="images/visualization.png?raw=true" style="width:550px;height:320px;"/>
 
 ---
