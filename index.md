@@ -12,7 +12,10 @@
 <img src="images/visualization.png?raw=true" style="width:550px;height:320px;"/>
 
 ---
+[Interactive Dashboards]("images/dashboard.png")
+<img src="images/dashboard.png?raw=true" style="width:550px;"/>
 
+---
 ## Research
 
 [Fraser et al., (2021). Using an Electroencephalography Brain-Computer Interface for Monitoring Mental Workload 
