@@ -1,0 +1,582 @@
+---
+title: "COVID-19 Case Rates Across Canadian Health Regions"
+output:
+   html_document:
+    theme: github_document
+---
+
+<!-- # ```{r set-options, echo=FALSE} -->
+<!-- # options(width = 60) -->
+<!-- # ``` -->
+
+
+<!-- <style type="text/css"> -->
+<!-- .main-container { -->
+<!--   max-width: 60px; -->
+<!--   margin-left: auto; -->
+<!--   margin-right: auto; -->
+<!-- } -->
+<!-- </style> -->
+
+
+## Background
+
+This report was developed to highlight the current COVID-19 situation across Canada. Providing case rate statistics by local health regions is better suited to detect outbreaks or local health concerns. The case rate used here is the _count of new cases reported in the previous 7 day, divided by 100,000 population_.  
+
+This report was completed using RMarkdown and was completed as part of a web scraping, automation, and visualization project. COVID-19 data is automatically scraped, processed, visualized, and uploaded everyday at ____.  
+
+Provincial and territorial COVID-19 data was imported from Canada.ca, and health region data was imported from [COVID-19 Canada](https://resources-covid19canada.hub.arcgis.com). Note that some regions report data at different frequencies, so case rates may be a day or two delayed in a few instances. 
+
+The ggplot2 package was used to display the provincial and territorial case rate, and the reactable package was used to develop the interactive table. 
+
+## Provincial and Territorial COVID-19 Case Rates
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(reactable)
+library(htmltools)
+library(lubridate)
+library(hrbrthemes)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+library(fuzzyjoin)
+library(tableHTML)
+library(zoo)
+library(dataui)
+#remotes::install_github("timelyportfolio/dataui")
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+data <- read.csv("https://health-infobase.canada.ca/src/data/covidLive/covid19-download.csv") ## Provincial and territorial COVID data
+
+
+######## Select the necessary data.
+
+data$date <- as.Date(data$date)
+
+data <- data %>% select(prname, date, numtoday)  %>% filter(date > (max(date)) - 40) %>%
+               filter( prname != "Canada" & prname != "Repatriated travellers")   ## selects the variables of interest, reduced rows to the last 20 days
+                                                                                      ## we'll need to calculate  over two different weeks - so provides some padding for different reporting times.
+
+
+
+###### Manipulate data to prepare for visualization.. see if I can do a panel chart with two vertical bar charts, one shows the rate change between weeks.
+
+# read in new StatsCan Q3 population sizes.
+
+pops <- read.csv("StatsCanQ3_pop.csv", header = T)
+colnames(pops)[1] <- "PT"
+pops$POP <- as.numeric(pops$POP)
+
+######### forloop, get sums of case counts per province
+#
+# PT_df <- c()
+# cases_7_df <- c()
+# cases_previous_week_df <- c()
+# change_df <- c()
+
+table_values <- data.frame()
+for (i in data$prname){
+  population <- pops[pops$PT == i, 2] /100000
+  cases_14 <- data %>% filter(prname == i) %>% filter(date > (max(date) - 14))
+  cases_7 <- cases_14 %>% filter(date > (max(date) - 7)) %>% select(numtoday) %>% sum() / population
+  cases_previous_week <- cases_14 %>% filter(date < (max(date)-6)) %>% select(numtoday) %>% sum() / population
+  change <- cases_7 - cases_previous_week
+  # rolling <- data %>% filter(prname == i) %>% arrange(desc(date)) %>% mutate(rolling = zoo::rollmean(numtoday, k = 7, fill = NA)) 
+  # for (i in 1:nrow(rolling)) {
+  #   r <- rolling %>% filter(i: ) 
+  # }
+  # r <- rolling %>% mutate
+  PTs <- data$prname[1:13]
+  ii <- which(PTs == i)
+
+  table_values[which(PTs == i),1:4] <- data.frame(i, cases_7, cases_previous_week, change)
+}
+
+
+##### plot it
+names(table_values)[1] <- "Province"
+
+
+m_df <- table_values[,-3]
+m_df <- melt(m_df, id.vars= 1)
+m_df$fill <- ifelse(m_df$value < 0, 3, 2)
+m_df$fill[m_df$variable == "cases_7"] <- 1
+m_df$fill <- factor(m_df$fill)
+
+m_df$Province[m_df$Province== "Quebec"] <- "Québec"
+
+# Create order facotrs levels to plot largest to smallest values.
+province_order <- table_values$Province[order(table_values$cases_7)]
+province_order[province_order == "Quebec"] <- "Québec"
+
+
+m_df$Province <- factor(m_df$Province, levels = province_order, ordered = T)
+
+
+colors <- c("gray76", "tomato", "green1")
+# New facet label names for dose variable
+var.labs <- c("cases_7" = "NEW CASES OVER 7 DAY PERIOD / 100K POPULATION",
+              "change" = "CHANGE IN RATE FROM PREVIOUS WEEK")
+
+
+#windowsFonts()
+
+#library(extrafont)
+# font_import()
+# loadfonts(device = "win")
+
+# m_df$value2 <- m_df$value
+# m_df$value2[m_df$variable == "change"] <- m_df$value2[m_df$variable == "change"] - min(m_df$value2[m_df$variable == "change"])
+
+
+#m_df$hjust <- ifelse(m_df$value >= 0, -0.2, -0.1)
+
+m_df$hjust <- ifelse(m_df$value >= 0, -0.3, 1.1)
+m_df$vjust <- ifelse(m_df$value >= 0, "top", 0)
+
+
+idx <- match(m_df$variable, names(var.labs))
+m_df$var.labs2 <- var.labs[idx]
+m_df$var.labs2 <- factor(m_df$var.labs2, levels = c("NEW CASES OVER 7 DAY PERIOD / 100K POPULATION", "CHANGE IN RATE FROM PREVIOUS WEEK"))
+
+
+pfw <- ggplot(data = m_df, aes(x = Province, y = value, group= variable, fill = fill)) +
+  geom_bar(stat = "identity", data = m_df) + scale_fill_manual(values=colors)+
+  geom_text(aes(label = round(value,1)), colour = "black", y = 3, hjust = 0) +
+  facet_grid(~ var.labs2, labeller = labeller(var.labs2 = label_wrap_gen(25)), scales = "free", space = "free_x") +
+  guides(fill = FALSE) +  # to remove the legend
+  theme_bw() + coord_flip() + labs(x="", y="") + theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  theme(strip.text = element_text(size=10)) + theme(strip.background =element_rect(fill="gray96"))+
+  theme(axis.text.y = element_text(size = 11, colour = "black")) #+ scale_y_continuous(expand = c(0.1, 4))
+                                                                        # + ylim((min(table_values$change)*1), (max(table_values$cases_7)*1.25))
+
+# change scales...change number position on negative side. 
+
+# library(grid)
+# gt = ggplot_gtable(ggplot_build(pfw))
+# gt$widths[7] = 1*gt$widths[7]
+# grid.draw(gt)
+# library(gtable)
+
+# ymax_case <- max(m_df$value)
+# scales
+
+
+
+
+```
+
+
+```{r,echo=FALSE, fig.height=4, fig.width=9, fig.fullwidth = FALSE, message=FALSE, warning=FALSE}
+
+#library(plotly)
+#library(tidyverse)
+#library(htmlwidgets)
+
+pfw
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE} 
+
+#ON_data <- read.csv("COVID-19_ON_data.csv")
+#QC_data<- read.csv(url("https://msss.gouv.qc.ca/professionnels/statistiques/documents/covid19/COVID19_Qc_RapportINSPQ_VigieCategories.csv"))
+
+#AB_data <- read.csv(url("blob:https://www.alberta.ca/4964468a-4364-4daf-b61b-97a325e7aa1f"))
+
+
+
+HZ_data <- read.csv(url("https://opendata.arcgis.com/api/v3/datasets/3aa9f7b1428642998fa399c57dad8045_1/downloads/data?format=csv&spatialRefId=4326"))
+
+
+### remove time, order date, group by HR, minus previous day. 
+
+HZ_data$Last_Updated <- as.Date(gsub("\\ .*","",HZ_data$Last_Updated))
+HZ_data$HR_UID <- as.character(HZ_data$HR_UID)
+
+HZ_data <- HZ_data %>% select(Province, HR_UID, CaseCount, Last_Updated) %>% filter(Last_Updated > max(Last_Updated) - 35)
+
+
+
+HZ_info <- read.csv(url("https://opendata.arcgis.com/api/v3/datasets/e5403793c5654affac0942432783365a_0/downloads/data?format=csv&spatialRefId=4326"))
+
+HZ_info <- HZ_info %>% select(HR_UID, ENGNAME, TotalPop2019) %>% distinct()
+HZ_info$HR_UID <- as.character(HZ_info$HR_UID)
+
+#names(HZ_table_values)[2] <- "HR_UID"
+
+
+
+# HZ_new_cases <- 
+  
+ii <- 1
+HZ_table_values <- data.frame()
+#sparkline <- data.frame()
+for (i in unique(HZ_data$HR_UID)){
+  #population <- HZ_data %>% filter(HR_UID == i) %>% select(TotalPop2019) %>% first()/100000
+  #df$Date_difference_in_days <-difftime(df$date1,df$date2,units=c("days"))
+  cases_14 <- HZ_data %>% filter(HR_UID == i)  %>% filter(Last_Updated > (max(Last_Updated) - 16)) %>% arrange(desc(Last_Updated))  %>% mutate(new_cases = CaseCount - lead(CaseCount)) %>% slice(1:14)
+  cases_7 <- cases_14 %>% filter(Last_Updated > (max(Last_Updated) - 7)) %>% ungroup() %>% select(new_cases) %>% sum()# / population
+  cases_previous_week <- cases_14 %>% filter(Last_Updated < (max(Last_Updated)-6)) %>% ungroup() %>% select(new_cases) %>% sum() # / population
+  change <- cases_7 - cases_previous_week
+  mutate_cases <- HZ_data %>% filter(HR_UID == i) %>% arrange(desc(Last_Updated)) %>% mutate(new_cases = CaseCount - lead(CaseCount)) %>% mutate(rolling = rollsum(new_cases, k = 7, fill = NA, align = "left")) %>% arrange(Last_Updated)
+  #population <- HZ_data %>% filter(HR_UID == i) %>% select(TotalPop2019) %>% first()/100000
+  #################
+  # PTs <- data$prname[1:13]
+  # ii <- which(PTs == i)
+  mutate_cases$rolling <- gsub(",","",mutate_cases$rolling)
+  
+  HZ_table_values[ii,1:6] <- data.frame(cases_14$Province[1], i, cases_7, change, max(cases_14$Last_Updated), (x = paste(mutate_cases$rolling, collapse = ',')))# list(mutate_cases$Last_Updated))#, list(mutate_cases$rolling))
+  
+  #sparkline[nrow(sparkline)+1:nrow(mutate_cases),1:3] <- data.frame(mutate_cases$HR_UID, mutate_cases$Last_Updated, mutate_cases$rolling)
+  
+  
+  
+  ii <- ii +1 
+}
+
+### will need to factor in population to rolling averages above.
+
+HZ_info <- read.csv(url("https://opendata.arcgis.com/api/v3/datasets/e5403793c5654affac0942432783365a_0/downloads/data?format=csv&spatialRefId=4326"))
+
+HZ_info <- HZ_info %>% select(HR_UID, ENGNAME, TotalPop2019) %>% distinct()
+HZ_info$HR_UID <- as.character(HZ_info$HR_UID)
+
+names(HZ_table_values)[2] <- "HR_UID"
+
+HZ_table_values2 <- merge(HZ_table_values, HZ_info, by="HR_UID")
+HZ_table_values2$TotalPop2019 <- HZ_table_values2$TotalPop2019 / 100000
+HZ_table_values2$cases_7 <- round(HZ_table_values2$cases_7 / HZ_table_values2$TotalPop2019, digits = 1)
+HZ_table_values2$change <- round(HZ_table_values2$change / HZ_table_values2$TotalPop2019, digits = 1)
+
+names(HZ_table_values2)[c(2,5,6)] <- c("Province", "Last_Updated", "Rolling")
+
+#### adjust rolling sums to include population denominator
+new_rolling <- c()
+maxs <- c()
+for (i in 1:nrow(HZ_table_values2)){
+  trendline <- HZ_table_values2[i,c(6,8)]
+  #trendline <- HZ_table_values2 %>% slice(i) #%>% select(Rolling, TotalPop2019)#
+  x <- unlist(strsplit(trendline$Rolling, split = ","))
+  x <- as.numeric(x)/ trendline$TotalPop2019
+  x <- round(x, digits = 1)
+  maxs[i] <- x[15:length(x)] %>% na.omit() %>% max() #max(x[!is.na(x[15:length(x)])])
+  x <- paste(x, collapse = ',')
+  new_rolling[i] <- x
+}
+
+HZ_table_values2$Rolling <- new_rolling
+
+# sparkline(as.numeric(unlist(strsplit(HZ_table_values2$sparkline[[index]], split = ","))), width = 240)
+
+##### match codes to get names and populations. 
+
+```
+
+
+```{css, echo=FALSE}
+.bar-cell {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+}
+.number {
+  font-size: 14px;
+  white-space: pre;
+}
+.bar-chart {
+  flex-grow: 1;
+  margin-left: 6px;
+  height: 22px;
+  font-size: 10px;
+}
+.bar {
+  height: 100%;
+}
+
+.table {
+  margin: 0 auto;
+  width: 675px;
+}
+.tableTitle {
+  margin: 6px 0;
+  font-size: 14px;
+  font-family: 'Econ Sans Cnd'
+}
+.tableTitle h2 {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Econ Sans Cnd'
+}
+.tableTitle p {
+  font-size: 16px;
+  font-weight: 500;
+}
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# need to change accents 
+
+
+QC_names <- HZ_table_values2$ENGNAME[HZ_table_values2$Province == "QC"]
+
+# library(rvest)
+# 
+# link <- "https://www.msss.gouv.qc.ca/en/reseau/regions-sociosanitaires-du-quebec/"
+# 
+# page <- read_html(link)
+# new_QC_names <- page %>% html_nodes("h3") %>% html_text()
+
+# remove html from names
+#new_QC_names <- gsub('.*\\. ',"",new_QC_names))
+
+
+new_QC_names <- c ("Bas-Saint-Laurent", "Saguenay–Lac-Saint-Jean", "Capitale-Nationale", "Mauricie-et-Centre-du-Québec", "Estrie", "Montréal", "Outaouais", "Abitibi-Témiscamingue", "Côte-Nord", "Nord-du-Québec", "Gaspésie–Îles-de-la-Madeleine", "Chaudière-Appalaches", "Laval", "Lanaudière", "Laurentides", "Montérégie", "Nunavik", "Terres-Cries-de-la-Baie-James")
+
+
+names_pair <- data.frame(QC_names, new_QC_names)
+
+#######################
+
+
+HZ_table_values2$ENGNAME[HZ_table_values2$Province == "QC"] <- new_QC_names[match(HZ_table_values2$ENGNAME[HZ_table_values2$Province == "QC"], QC_names)]
+  
+  
+################  match province names
+
+colnames(HZ_table_values2)[2] <- "PT"
+pt_names <- unique(HZ_table_values2$PT)
+
+new_pt_names <- c("Newfoundland and Labrador", "Prince Edward Island", "Nova Scotia", "New Brunswick", "Québec", "Ontario", "Manitoba", "Saskatchewan", "Alberta", "British Columbia", "The Yukon", "Northwest Territories", "Nunavut")
+
+
+#######################
+
+HZ_table_values2$PT <- new_pt_names[match(HZ_table_values2$PT, pt_names)]
+
+  
+  
+
+```
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+######## Table stylings #####################
+
+append_date_suffix <- function(dates) {
+  suff <- case_when(
+    dates %in% c(11, 12, 13) ~ "th",
+    dates %% 10 == 1 ~ 'st',
+    dates %% 10 == 2 ~ 'nd',
+    dates %% 10 == 3 ~ 'rd',
+    TRUE ~ "th"
+  )
+  paste0(dates, suff)
+}
+
+bar_style <- function(width = 1, fill = "#e6e6e6", height = "100%", align = c("left", "right"), color = NULL) {
+  align <- match.arg(align)
+  if (align == "left") {
+    position <- paste0(width * 100, "%")
+    image <- sprintf("linear-gradient(90deg, %1$s %2$s, transparent %2$s)", fill, position)
+  } else {
+    position <- paste0(100 - width * 100, "%")
+    image <- sprintf("linear-gradient(90deg, transparent %1$s, %2$s %1$s)", position, fill)
+  }
+  list(
+    backgroundImage = image,
+    backgroundSize = paste("100%", height),
+    backgroundRepeat = "no-repeat",
+    backgroundPosition = "center",
+    color = color
+  )
+}
+
+
+# bar_chart_pos_neg <- function(width = 1, fill = "#e6e6e6", height = "75%", align = c("left", "right"), pos_fill = "#ff121a", neg_fill = "#02aa5c") {
+#   neg_chart <- div(style = list(flex = "1 1 0"))
+#   pos_chart <- div(style = list(flex = "1 1 0"))
+#   width <- paste0(abs(value / max(max(HZ_table_values2$cases_7))) * 100, "%")
+#   
+#   if (value < 0) {
+#     bar <- div(style = list(marginLeft = "8px", background = neg_fill, width = width, height = height))
+#     chart <- div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"), label, bar)
+#     neg_chart <- tagAppendChild(neg_chart, chart)
+#   } else {
+#     bar <- div(style = list(marginRight = "8px", background = pos_fill, width = width, height = "75%"))
+#     chart <- div(style = list(display = "flex", alignItems = "center"),  bar, label)
+#     pos_chart <- tagAppendChild(pos_chart, chart)
+#   }
+#   
+#   div(style = list(display = "flex"), neg_chart, pos_chart)
+# }
+
+
+
+bar_style_pos_neg <- function(width = 1, pos_fill = "lightpink", neg_fill = "lightgreen") {
+  # Split the background into 2 halves for negative and positive bars.
+  # For positive bars, draw the bar from 50% to 50% + width
+  # For negative bars, draw the bar from 50% + -width to 50%
+  position <- paste0((0.5 + width / 2) * 100, "%")
+  if (width >= 0) {
+    background <- sprintf("linear-gradient(90deg, transparent 50%%, %2$s 50%%, %2$s %1$s, transparent %1$s)", position, pos_fill)
+  } else {
+    background <- sprintf("linear-gradient(90deg, transparent %1$s, %2$s %1$s, %2$s 50%%, transparent 50%%)", position, neg_fill)
+  }
+
+  list(
+    background = background,
+    backgroundSize = "98% 88%",
+    backgroundRepeat = "no-repeat",
+    backgroundPosition = "center"
+  )
+}
+
+
+# bar_chart_pos_neg <- function(label, value, max_value = 1, height = "16px",
+#                               pos_fill = "#ff121a", neg_fill = "#02aa5c") {
+#   neg_chart <- div(style = list(flex = "1 1 0"))
+#   pos_chart <- div(style = list(flex = "1 1 0"))
+#   width <- paste0(abs(value / max(max(HZ_table_values2$cases_7))) * 100, "%")
+#   
+#   if (value < 0) {
+#     bar <- div(style = list(marginLeft = "8px", background = neg_fill, width = width, height = height))
+#     chart <- div(style = list(display = "flex", alignItems = "center", justifyContent = "flex-end"), label, bar)
+#     neg_chart <- tagAppendChild(neg_chart, chart)
+#   } else {
+#     bar <- div(style = list(marginRight = "8px", background = pos_fill, width = width, height = height))
+#     chart <- div(style = list(display = "flex", alignItems = "center"),  bar, label)
+#     pos_chart <- tagAppendChild(pos_chart, chart)
+#   }
+#   
+#   div(style = list(display = "flex"), neg_chart, pos_chart)
+# }
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+### format names
+HZ_table_values2$ENGNAME[HZ_table_values2$ENGNAME == "Southern Healthâ€”SantÃ© Sud"] <- "Southern Health"
+########################### The table
+
+#colnames(HZ_table_values2)[6] <- "sparkline"
+HZ_table_values2$Rolling2 <- HZ_table_values2$Rolling
+HZ_table_values2 <- HZ_table_values2 %>% select(PT, ENGNAME, cases_7, change, Rolling, Rolling2)
+
+
+library(sparkline)
+
+table <- reactable(HZ_table_values2, defaultSortOrder = 'desc',
+  defaultSorted = 'cases_7', height = 500,
+  theme = reactableTheme(
+    borderColor = "#dfe2e5",
+    stripedColor = "#f6f8fa"),
+  showSortIcon = TRUE,
+  compact = TRUE, filterable = TRUE, pagination = FALSE,  defaultColDef = colDef(
+    ### define header styling
+    headerStyle = list(
+      textAlign = "left",
+      fontSize = "16px",
+      lineHeight = "16px",
+      textTransform = "uppercase",
+      color = "#0c0c0c",
+      fontWeight = "500",
+      borderBottom = "2px solid #e9edf0",
+      paddingBottom = "2px",
+      verticalAlign = "bottom",
+      fontFamily = font_es,
+       footer = function(values, name) htmltools::div(name, style = list(fontWeight = 600))
+    ),
+    ### define default column styling
+    style = list(
+      fontFamily = font_es,
+      fontSize = "14px",
+      verticalAlign = "center",
+      align = "left"
+    )
+  ),  columns = list(
+    ENGNAME = colDef(
+      name = "Region",
+      maxWidth = 200
+      #style = list(fontsize = "6px")
+    ), 
+    PT = colDef(
+      name = "Province / Territory",
+      maxWidth = 150
+      #style = list( fontsize = 6)
+    ),
+    cases_7 = colDef(
+      name = "Cases over past 7 day / 100,000",
+      align = "left",
+      #fontSize = "14px",
+      style = function(value) {
+        bar_style(width = value / max(HZ_table_values2$cases_7))
+      },
+      maxWidth = 200,
+      ), 
+    change = colDef(
+      name = "Change in case rate from previous week",
+       align = "center",
+        #fontSize = "14px",
+      # style = list(fontFamily = font_es,
+      # fontWeight = "400", fontsize = "13px"),
+      maxWidth = 200,
+      style = function(value) {
+      bar_style_pos_neg(width = value / max(abs(HZ_table_values2$cases_7)))
+     # bar_chart_pos_neg(label, value, height)
+    }),
+    Rolling = colDef(
+    name = "Case rate over past month",
+    maxWidth = 200,
+    align = "center",
+    cell = function(value, index) {
+    sparkline(na.omit(as.numeric(unlist(strsplit(HZ_table_values2$Rolling[[index]], split = ",")))), width = "100%")
+      }),
+    Rolling2 = colDef(
+    name = "Fixed Scale",
+    maxWidth = 200,
+    align = "center",
+    cell = function(value, index) {
+    sparkline(na.omit(as.numeric(unlist(strsplit(HZ_table_values2$Rolling[[index]], split = ",")))), width = "100%",  fillColor = 'pink', lineColor = 'red', chartRangeMax = max(maxs))
+      })
+      ))
+
+#y <- list(as.numeric(unlist(strsplit(as.character(HZ_table_values2$Rolling), split = ","))))
+
+#y <- strsplit(as.character(HZ_table_values2$Rolling[1]), split = ",")
+
+# components = list(
+#         dui_sparklineseries(
+#           # styling
+#           stroke = colpal[index],
+#           showArea = TRUE,
+#           fill = colpal[index]
+#         )
+
+#unlist(strsplit(x, split = ""))
+div(class = "tableTitle",
+    div(
+      class = "title",
+      h2("Interactive Table Showing Regional COVID-19 Cases and Week to Week Changes"),
+      p(
+        paste0("Updated on ", format(Sys.Date(),"%B "),
+          append_date_suffix(
+            as.numeric(format(Sys.Date(), "%d"))
+            ), " ",
+          strftime(Sys.time(), format = "%H:%M"), " ET.", " Click on header title to sort table, or search for a region using the search tab. A rolling 7-day case rate is displayed on the line graphs. Hover over the graph to see the date and the case rate over the previous 7 days."
+        )
+      ),
+    ),
+    table)
+ 
+      
+      
+```
+
+
