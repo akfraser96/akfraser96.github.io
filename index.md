@@ -4,7 +4,7 @@
 
 ## Data Science 
 
-[Web Scraping, Automation, and Constructing Interactive Tables Using COVID-19 Data](http://127.0.0.1:3186/covid_table3.Rmd)
+[Web Scraping, Automation, and Constructing Interactive Tables Using COVID-19 Data](https://adamkfraser.shinyapps.io/covid_table3/)
 <img src="images/COVID_project_photo.png?raw=true" style="width:550px;"/>
 
 ---
