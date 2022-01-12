@@ -4,7 +4,7 @@
 
 ## Data Science 
 
-[Web Scraping, Automation, and Constructing Interactive Tables Using COVID-19 Data](https://adamkfraser.shinyapps.io/covid_table3/)
+[Web Scraping, Automation, and Constructing Interactive Tables Using COVID-19 Data](https://adamkfraser.shinyapps.io/COVID-19_Canada_Case_Rate_Display/)
 <img src="images/COVID_project_photo.png?raw=true" style="width:550px;"/>
 
 ---
