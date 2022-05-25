@@ -8,6 +8,10 @@
 <img src="images/COVID_project_photo.png?raw=true" style="width:550px;"/>
 
 ---
+[Visualization]("images/web_app2.gif")
+<img src="images/web_app2.gif?raw=true" style="width:550px;height:320px;"/>
+
+---
 [Visualization]("images/visualization.png")
 <img src="images/visualization.png?raw=true" style="width:550px;height:320px;"/>
 
