@@ -17,7 +17,7 @@
 
 ---
 [Interactive Dashboards]("images/dashboard_2.png")
-<img src="images/dashboard.png?raw=true" style="width:530px;"/>
+<img src="images/dashboard_2.png?raw=true" style="width:530px;"/>
 
 ---
 ## Research
