@@ -14,6 +14,11 @@
 <img src="images/web_app2.gif?raw=true" style="width:550px;"/>
 
 ---
+[Text Analysis]("images/text_analysis.png")
+
+<img src="images/text_analysis.gif?raw=true" style="width:550px;"/>
+
+---
 [Visualization]("images/visualization.png")
 <img src="images/visualization.png?raw=true" style="width:550px;height:320px;"/>
 
