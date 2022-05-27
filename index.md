@@ -4,11 +4,11 @@
 
 ## Data Science 
 
-[Fully Automated COVID-19 Dashboard](https://adamkfraser.shinyapps.io/COVID-19_Canada_Case_Rate_Display_OFFLINE/)
+[Fully Automated COVID-19 Dashboard (R + Shiny)](https://adamkfraser.shinyapps.io/COVID-19_Canada_Case_Rate_Display_OFFLINE/)
 <img src="images/COVID_project_photo.png?raw=true" style="width:550px;"/>
 
 ---
-[Interactive Web Application]("images/web_app2.gif")
+[Interactive Web Application (R + Shiny)]
 <img src="images/web_app2.gif?raw=true" style="width:550px;"/>
 
 ---
