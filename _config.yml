@@ -10,5 +10,5 @@ description: > # your text below (remove <br> elements if you don't need line br
   <a href="mailto:akfraser96@gmail.com">akfraser96@gmail.com</a> 
   <br><br>
  
-theme: minimal/stylesheets/styles.css
+theme: "minimal/stylesheets/styles.css"
 google_analytics: UA-000000-0 # your Google Analytics tracking ID here
