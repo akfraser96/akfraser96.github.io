@@ -4,7 +4,7 @@
 
 ## Data Science 
 
-[Fully Automated COVID-19 Dashboard (R + Shiny)](https://adamkfraser.shinyapps.io/COVID-19_Canada_Case_Rate_Display_OFFLINE/)
+[Automated COVID-19 Dashboard (R + Shiny)](https://adamkfraser.shinyapps.io/COVID-19_Canada_Case_Rate_Display_OFFLINE/)
 
 <img src="images/COVID_project_photo.png?raw=true" style="width:550px;"/>
 
@@ -35,8 +35,8 @@ During Flight Simulation](/pdf/Fraser_ISAP_2021.pdf)
 
 ---
 [Fraser & Christie (2018). Purely Voluntary Orienting of Attention](/pdf/Fraser&Christie_APP_SubmittedPDF.pdf )
-<img src="images/attention.png?raw=true" style="width:400px; margin-left: auto; margin-right: auto;"/>
+<img src="images/attention.png?raw=true" style="width:450px; margin-left: auto; margin-right: auto;"/>
 
 ---
 [Van Benthem et al., (2019). The NASA MATB-II Predicts Prospective Memory Performance During Complex Simulated Flight](/pdf/ISAP2019.pdf)
-<img src="images/ISAP2019.png?raw=true" style="width:400px;"/>
+<img src="images/ISAP2019.png?raw=true" style="width:450px;"/>
