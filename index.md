@@ -25,7 +25,7 @@
 ---
 [Interactive Dashboards]("images/dashboard_2.png")
 
-<img src="images/pol_screenshot.jpg?raw=true" style="width:530px;"/>
+<img src="images/pol_screenshot.png?raw=true" style="width:530px;"/>
 
 <img src="images/dashboard_3.png?raw=true" style="width:530px;"/>
 
