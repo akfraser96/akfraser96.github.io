@@ -27,6 +27,8 @@
 
 <img src="images/dashboard_3.png?raw=true" style="width:530px;"/>
 
+<img src="images/pol_dashboard.jpg?raw=true" style="width:530px;"/>
+
 ---
 ## Research
 
