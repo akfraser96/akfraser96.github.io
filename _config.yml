@@ -1,9 +1,7 @@
-title: Adam Fraser # your name (or website title) here
-logo: "/images/logo4.png?raw=true" # your photo (or logo) here
+title: Adam Fraser 
+logo: "/images/adam headshot.png?raw=true" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
-  <p style='color&#x3a;#000000!important'>Currently working as a data analyst with the Canadian federal government.
-  <br><br>
-  I am motivated by making engaging data science products such as web applications and automated dashboards.  
+  <p style='color&#x3a;#000000!important'>I am a data scientist and housing researcher with a focus on data-driven analysis to inform housing policy. I create intuitive and engaging analytics products that support non-data specialists in understanding complex insights.  
   <br><br>
   Kingston, Ontario, Canada</p>
   <br><br>

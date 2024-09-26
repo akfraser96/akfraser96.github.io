@@ -2,7 +2,19 @@
 
 ---
 
-## Data Science 
+## Analytics Products
+
+[Low-End of Market Rental Housing Monitor](https://lemr.ca)
+
+<img src="images/lemr.png?raw=true" style="width:550px;"/>
+
+---
+
+[Geospatial Mapping]("images/mpp-maps.png")
+
+<img src="images/mpp-map.png?raw=true" style="width:550px;"/>
+
+---
 
 [Automated COVID-19 Dashboard (R + Shiny)](https://adamkfraser.shinyapps.io/COVID-19_Canada_Case_Rate_Display_OFFLINE/)
 
