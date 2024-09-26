@@ -12,7 +12,7 @@
 
 [Geospatial Mapping]("images/mpp-maps.png")
 
-<img src="images/mpp-map.png?raw=true" style="width:550px;"/>
+<img src="images/mpp-maps.png?raw=true" style="width:550px;"/>
 
 ---
 
