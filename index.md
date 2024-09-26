@@ -4,29 +4,31 @@
 
 ## Analytics Products
 
-[Low-End of Market Rental Housing Monitor](https://lemr.ca)
+<a href="https://lemr.ca" target="_blank">Low-End of Market Rental Housing Monitor</a>
 
 <img src="images/lemr.png?raw=true" style="width:550px;"/>
 
 ---
 
-[Geospatial Mapping]("images/mpp-maps.png")
+<a href="images/mpp-maps.png" target="_blank">Geospatial Mapping</a>
 
 <img src="images/mpp-maps.png?raw=true" style="width:550px;"/>
 
 ---
 
-[Automated COVID-19 Dashboard (R + Shiny)](https://adamkfraser.shinyapps.io/COVID-19_Canada_Case_Rate_Display_OFFLINE/)
+<a href="https://adamkfraser.shinyapps.io/COVID-19_Canada_Case_Rate_Display_OFFLINE/" target="_blank">Automated COVID-19 Dashboard (R + Shiny)</a>
 
 <img src="images/COVID_project_photo.png?raw=true" style="width:550px;"/>
 
 ---
-[Interactive Web Application (R + Shiny)]("images/dashboard_2.png")
+
+<a href="images/dashboard_2.png" target="_blank">Interactive Web Application (R + Shiny)</a>
 
 <img src="images/web_app2.gif?raw=true" style="width:550px;"/>
 
 ---
-[Text Analysis]("images/text_analysis.png")
+
+<a href="images/text_analysis.png" target="_blank">Text Analysis</a>
 
 <img src="images/text_analysis.gif?raw=true" style="width:550px;"/>
 
