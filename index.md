@@ -16,19 +16,19 @@
 
 ---
 
+<a href="images/web_app2.gif" target="_blank">Interactive Web Application (R + Shiny)</a>
+
+<img src="images/web_app2.gif?raw=true" style="width:550px;"/>
+
+---
+
 <a href="https://adamkfraser.shinyapps.io/COVID-19_Canada_Case_Rate_Display_OFFLINE/" target="_blank">Automated COVID-19 Dashboard (R + Shiny)</a>
 
 <img src="images/COVID_project_photo.png?raw=true" style="width:550px;"/>
 
 ---
 
-<a href="images/dashboard_2.png" target="_blank">Interactive Web Application (R + Shiny)</a>
-
-<img src="images/web_app2.gif?raw=true" style="width:550px;"/>
-
----
-
-<a href="images/text_analysis.png" target="_blank">Text Analysis</a>
+<a href="images/text_analysis.gif" target="_blank">Text Analysis</a>
 
 <img src="images/text_analysis.gif?raw=true" style="width:550px;"/>
 
