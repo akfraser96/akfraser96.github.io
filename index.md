@@ -2,11 +2,23 @@
 
 ---
 
-## Analytics Products
+## Recent Housing Products
 
 <a href="https://lemr.ca" target="_blank">Low-End of Market Rental Housing Monitor</a>
 
 <img src="images/lemr.png?raw=true" style="width:550px;"/>
+
+---
+
+<a href="https://adam-k-fraser.shinyapps.io/to-renovictions-dashboard-demo/" target="_blank">Interactive Evictions Map</a>
+
+<img src="images/840BxByFyK.gif?raw=true" style="width:550px;"/>
+
+---
+
+<a href="https://akfraser96.github.io/nhs-fund-tracker/" target="_blank">Community Housing Funding Report</a>
+
+<img src="images/NHS fund tracker figure example.png?raw=true" style="width:550px;"/>
 
 ---
 
@@ -15,6 +27,8 @@
 <img src="images/mpp-maps.png?raw=true" style="width:550px;"/>
 
 ---
+
+## Other Analytic Tools
 
 <a href="images/web_app2.gif" target="_blank">Interactive Web Application (R + Shiny)</a>
 
@@ -35,13 +49,6 @@
 ---
 [Visualization]("images/visualization.png")
 <img src="images/visualization.png?raw=true" style="width:550px;height:320px;"/>
-
----
-[Interactive Dashboards]("images/dashboard_2.png")
-
-<img src="images/pol_screenshot.png?raw=true" style="width:530px;"/>
-
-<img src="images/dashboard_3.png?raw=true" style="width:530px;"/>
 
 ---
 ## Research
