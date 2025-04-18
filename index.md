@@ -30,15 +30,9 @@
 
 ## Other Analytic Tools
 
-<a href="images/web_app2.gif" target="_blank">Interactive Web Application (R + Shiny)</a>
+<a href="images/web_app2.gif" target="_blank">Automated Self-Assessment Report (R + Shiny)</a>
 
 <img src="images/web_app2.gif?raw=true" style="width:550px;"/>
-
----
-
-<a href="https://adamkfraser.shinyapps.io/COVID-19_Canada_Case_Rate_Display_OFFLINE/" target="_blank">Automated COVID-19 Dashboard (R + Shiny)</a>
-
-<img src="images/COVID_project_photo.png?raw=true" style="width:550px;"/>
 
 ---
 
@@ -47,6 +41,12 @@
 <img src="images/text_analysis.gif?raw=true" style="width:550px;"/>
 
 ---
+<a href="https://adamkfraser.shinyapps.io/COVID-19_Canada_Case_Rate_Display_OFFLINE/" target="_blank">Automated COVID-19 Dashboard (R + Shiny)</a>
+
+<img src="images/COVID_project_photo.png?raw=true" style="width:550px;"/>
+
+---
+
 [Visualization]("images/visualization.png")
 <img src="images/visualization.png?raw=true" style="width:550px;height:320px;"/>
 

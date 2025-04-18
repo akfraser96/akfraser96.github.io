@@ -3,9 +3,9 @@ logo: "/images/adam headshot.png?raw=true" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
   <p style='color&#x3a;#000000!important'>I am a data scientist and housing researcher with a focus on data-driven analysis to inform housing policy. I create intuitive and engaging analytics products that support non-data specialists in understanding complex insights.  
   <br><br>
-  Kingston, Ontario, Canada</p>
+  Toronto, Ontario, Canada</p>
   <br><br>
-  <a href="mailto:akfraser96@gmail.com">akfraser96@gmail.com</a> 
+  <a href="mailto:akfraser96@gmail.com">adamkyle.fraser@gmail.com</a> 
   <br><br>
   
 theme: jekyll-theme-minimal
